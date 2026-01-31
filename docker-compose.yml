@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    user: "0:0"
+    privileged: false
+    image: log-analyzer
+    container_name: log-analyzer-cli
+
+    stdin_open: true 
+    tty: true       
+
+   
+    volumes:
+      - /var/log:/app/logs:ro         
+      - ./reports:/app/reports      
+      - /etc/localtime:/etc/localtime:ro  
+      - /etc/timezone:/etc/timezone:ro

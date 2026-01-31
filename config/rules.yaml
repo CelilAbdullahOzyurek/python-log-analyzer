@@ -1,0 +1,36 @@
+rules:
+ # // Rules the I used in my web site They can not be entirely accurate but I am using this rules in my WAF  
+  - name: "Bot Scanner Attack"
+    type: "regex"
+    pattern: "POST\\s+/(wp-admin|wp-login|admin/|config/|api/v1/setup|\\.env)"  
+    severity: "medium"
+
+  - name: "SQL Injection Attempt"
+    type: "regex"
+    pattern: "(\\bunion\\b.*\\bselect\\b|\\bselect\\b.*\\bfrom\\b|OR\\s+['\"]?\\d+['\"]?\\s*=\\s*['\"]?\\d+['\"]?|--|#|\\bdrop\\b\\s+table)"
+    severity: "critical"
+
+  - name: "Sensitive File Access Attempt"
+    type: "regex"
+    pattern: "(^|/)\\.(env|git|svn|htaccess|bash_history|sql|bak|config|yml)$"
+    severity: "high"
+
+# Rules the I used in my remote server
+
+  - name: "SSH Failed Login"
+    type: "regex"
+    pattern: "sshd\\[\\d+\\]: Failed password for"
+    severity: "high"
+
+  - name: "SSH Invalid User"
+    type: "regex"
+    pattern: "sshd\\[\\d+\\]: Invalid user"
+    severity: "high"
+
+  - name: "Sudo Abuse Attempt"
+    type: "regex"
+    pattern: "sudo:.*command not allowed.*USER=root"
+    severity: "critical"
+
+
+
